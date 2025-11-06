@@ -1,0 +1,446 @@
+//Practica 1
+
+fun main() {
+      val morningNotification = 51
+      val eveningNotification = 135
+    
+    //funcion de notificacion si el 
+    printNotificationSummary(morningNotification)
+    printNotificationSummary(eveningNotification)
+    
+   
+    
+ 
+}
+ 
+fun printNotificationSummary(cantidad: Int){
+    
+    if(cantidad <= 99 && cantidad >0 ){
+        
+        println("You have $cantidad notifications")
+    }
+    else{ 
+    	println("Your phone is blowing up! You have 99+ notifications")
+    }
+}
+
+
+//Practica 2
+
+
+fun main() {
+    
+    
+    val child = 5
+    val adult = 28
+    val senior = 87
+    
+    val isMonday = true
+    println("The movie ticket price for a person aged $child is \$${ticketPrice(child, false)}.")
+    println("The movie ticket price for a person aged $child is \$${ticketPrice(child, isMonday)}.")
+    println("The movie ticket price for a person aged $adult is \$${ticketPrice(adult, isMonday)}.")
+    println("The movie ticket price for a person aged $senior is \$${ticketPrice(senior, isMonday)}.")
+    
+    
+ 
+}
+ //ejemplo de switch
+fun ticketPrice(age: Int, isMonday: Boolean): Int {
+    // Fill in the code.
+    if(isMonday){
+    return when(age){
+        5 -> 15 
+        28 -> 25
+        87 ->  20 
+        else -> 0
+    }
+   
+    
+} 
+    else return 0
+
+}
+
+
+//Practica 3
+
+
+fun main(){
+    
+    
+    val numeroA = 2
+    val numeroB=3
+    
+    println("Ejemplo de funcion Lamnda")
+    
+    var sum = {A: Int , B: Int -> A+B}
+    
+    println("Suma 1: "+ sum(numeroA, numeroB))   
+    
+   println("Ejemplo de funcion Lamnda con tipo inferido")
+    
+    var suma: (Int, Int) -> Int = {a, b -> a + b}
+    
+    println("Suma 2: " +  suma(8,9))
+    
+  println("Ejemplo de lamda con map")
+    
+    var numeros =listOf(3, 4, 5, 6 , 23)
+    
+    var numerosX2= numeros.map{it * 2}
+    
+    println(numerosX2)
+    
+    
+   println("Ejemplo de lamda con filter")
+    
+    var edades = listOf(50, 60 , 30, 65, 10, 15 , 33 )
+    var mayoresDeCuarenta = edades.filter{it>40}    
+    println(mayoresDeCuarenta)
+    
+    
+    
+  println("Ejemplo de lamda con SortedBy")
+   
+    data class humano (val nombre: String, var edad: Int)
+    
+    var grupoHumano = listOf(
+        humano("Jose", 100),
+        humano("Gastón", 56),
+        humano("Wilson", 18),
+        humano("Josefa", 6),
+        humano("Ana", 23),
+        humano("Xio", 44)    
+    )
+    
+    var listadoOrdenado = grupoHumano.sortedBy{it.edad}
+    println(listadoOrdenado)
+    
+    listadoOrdenado =  grupoHumano.sortedBy{it.nombre}
+     println(listadoOrdenado)
+     
+     
+ println("Ejemplo de mandrar lambda como parametro de una funcion")
+ 
+ fun operacion(a: Int, b: Int, cuenta: (Int, Int) -> Int ): Int{
+    return cuenta(a,b)
+}
+ 
+  val numero_a = 15654
+  val numero_b = 16
+    
+  val adicion = operacion(numero_a, numero_b) {x, y -> x + y}
+  val sustraccion = operacion(numero_a, numero_b) {x, y -> x - y}
+  val division = if (numero_b != 0) operacion(numero_a, numero_b) {x, y -> x / y}.toDouble() else "No se puede dividir por cero"
+  val multiplicacion =  operacion(numero_a, numero_b) {x, y -> x * y}
+  
+  println("Suma: " +adicion)
+  println("Resta: " +sustraccion)
+  println("Division: " + division)
+  println("Multiplicacion: " +multiplicacion)
+
+  
+ 
+}
+
+val edades = listOf(50, 60, 30, 65, 10, 15, 33)
+println(edades.any { it > 60 })   // true
+println(edades.all { it >= 18 })  // false
+println(edades.count { it > 40 }) // 3
+
+
+
+
+
+
+fun main() {
+    // Fill in the code.
+    
+    var temperaturaEnC: Double = 27.0
+    
+    printFinalTemperature(temperaturaEnC, "Celsius","Farenheit") {((9/5) * temperaturaEnC) + 32}
+    
+    
+    
+}
+
+
+fun printFinalTemperature(
+    initialMeasurement: Double, 
+    initialUnit: String, 
+    finalUnit: String, 
+    conversionFormula: (Double) -> Double
+) {
+    val finalMeasurement = String.format("%.2f", conversionFormula(initialMeasurement)) // two decimal places
+    println("$initialMeasurement degrees $initialUnit is $finalMeasurement degrees $finalUnit.")
+}
+
+
+
+///practica canciones  
+data class Song(
+    val titulo: String,
+    val artista: String,
+    val anioPublicacion: Int,
+    val reproducciones: Int
+) {
+    fun popularidad(): String = when {
+        reproducciones in 10..60 -> "regular"
+        reproducciones in 61..100 -> "popular"
+        reproducciones > 100 -> "hit"
+        else -> "unpopular"
+    }
+}
+
+val cancion1 = Song("titulito", "artista_ocho", 1996, 500)
+val cancion2 = Song("Titulo de la cancion 2", "Armando Medina Vega", 1935, 9)
+println("Título: ${cancion1.titulo} | Artista: ${cancion1.artista}")
+println(cancion1.popularidad())
+
+println("--------------------------")
+print("Titulo de la cancion: ${cancion2.titulo} | Artista: ${cancion2.artista} | Año: ${cancion2.anioPublicacion} | Popularidad: ${cancion2.popularidad()} ")
+
+
+/// practica herencia
+
+open class Phone(var isScreenLightOn: Boolean = false){
+   open fun switchOn() {
+        isScreenLightOn = true
+    }
+    
+    fun switchOff() {
+        isScreenLightOn = false
+    }
+    
+    fun checkPhoneScreenLight() {
+        val phoneScreenLight = if (isScreenLightOn) "on" else "off"
+        println("The phone screen's light is $phoneScreenLight.")
+    }
+}
+
+class FoldablePhone(isScreenLightOn: Boolean = false ): 
+                    Phone(isScreenLightOn){
+    override fun switchOn(){
+        println("Estoy overrideando!!!!")
+    }
+    
+}
+
+fun main(){
+    var telefono = FoldablePhone()
+    
+    telefono.switchOn()
+    telefono.switchOff()
+    println(telefono.isScreenLightOn)
+}
+
+
+///practica plegable
+
+open class Phone(var isScreenLightOn: Boolean = false){
+   open fun switchOn() {
+        isScreenLightOn = true
+    }
+    
+    fun switchOff() {
+        isScreenLightOn = false
+    }
+    
+    fun checkPhoneScreenLight() {
+        val phoneScreenLight = if (isScreenLightOn) "on" else "off"
+        println("The phone screen's light is $phoneScreenLight.")
+    }
+}
+
+class FoldablePhone(isScreenLightOn: Boolean = false, var fold: Boolean = false ): 
+                    Phone(isScreenLightOn){
+                        
+    override fun switchOn(){
+        if(fold) println("Ahora si se puede prender porque el telefono esta abierto!!!!")
+               else println("el telefono esta cerrado salamin!!!!")          
+    }          
+    
+    fun abrir(){
+        
+        fold = true
+    }
+    fun cerrar(){
+        fold = false
+    }
+}
+
+fun main(){
+    var telefono = FoldablePhone(false, false)
+    
+                telefono.abrir()
+    telefono.switchOn()
+    
+    //telefono.switchOff()
+    println(telefono.isScreenLightOn)
+}
+
+
+
+///practica subasta
+
+
+fun main() {
+    val winningBid = Bid(5000, "Private Collector")
+    
+    println("Item A is sold at ${auctionPrice(winningBid, 2000)}.")
+    println("Item B is sold at ${auctionPrice(null, 3000)}.")
+}
+
+class Bid(val amount: Int, val bidder: String)
+ 
+fun auctionPrice(bid: Bid?, minimumPrice: Int): Int {
+    
+    
+    var price: Int
+    
+    if(bid != null && bid.amount> minimumPrice){ price = bid.amount}
+    else price = minimumPrice
+    
+    
+    return price
+ 
+}
+
+***Genéricos
+Estas clases 
+class FillInTheBlankQuestion(
+    val questionText: String,
+    val answer: String,
+    val difficulty: String
+)
+
+class TrueOrFalseQuestion(
+    val questionText: String,
+    val answer: Boolean,
+    val difficulty: String
+)
+class NumericQuestion(
+    val questionText: String,
+    val answer: Int,
+    val difficulty: String
+)
+
+Las puedeo remplazar con esta con tipo de dato generico:
+
+class Question<T>(
+    val questionText: String,
+    val answer: T,
+    val difficulty: String
+)
+
+En cuyo caso cada vez que instancie la misma tengo que aclarar que tipo de dato es <T>
+
+fun main() {
+    val question1 = Question<String>("Quoth the raven ___", "nevermore", "medium")
+    val question2 = Question<Boolean>("The sky is green. True or false", false, "easy")
+    val question3 = Question<Int>("How many days are there between full moons?", 28, "hard")
+}
+
+
+
+****Diferentes tipos de clases (clases enum y clases de datos)
+**Enum
+enum class Difficulty {
+    EASY, MEDIUM, HARD
+}
+class Question<T>(
+    val questionText: String,
+    val answer: T,
+    val difficulty: Difficulty
+)
+val question1 = Question<String>("Quoth the raven ___", "nevermore", Difficulty.MEDIUM)
+val question2 = Question<Boolean>("The sky is green. True or false", false, Difficulty.EASY)
+val question3 = Question<Int>("How many days are there between full moons?", 28, Difficulty.HARD)
+
+**Data Class 
+Solo contienen datos, no tienen ningun metodo.
+Kotlin desarrolla automaticamente estos metodos de manera autonoma: 
+---equals()
+----hashCode() (verás este método cuando trabajes con ciertos tipos de colecciones)
+---toString()
+---componentN(): component1(), component2(), etc.
+---copy()
+
+Nota: Una clase de datos debe tener al menos un parámetro en su constructor, y todos los parámetros del constructor deben estar marcados con val o var.
+ Una clase de datos tampoco puede ser abstract, open, sealed ni inner
+
+
+****Objetos singleton y complementarios
+ **Un singleton es una clase que solo puede tener una única instancia. 
+ Kotlin proporciona una construcción especial, llamada objeto, que se puede usar para crear una clase singleton.
+ 
+ object StudentProgress {
+    var total: Int = 10
+    var answered: Int = 3
+}
+
+El modo de acceso a los datos del objeto Singleton es atraves del nombre del objeto seguido por un punto
+Ej: StudentProgress.total
+
+**Companion
+Un objeto complementario te permite acceder a sus propiedades y métodos desde adentro de la clase,
+ si las propiedades y los métodos del objeto pertenecen a esa clase, lo que permite una sintaxis más concisa.
+ 
+ class Quiz {
+    val question1 = Question<String>("Quoth the raven ___", "nevermore", Difficulty.MEDIUM)
+    val question2 = Question<Boolean>("The sky is green. True or false", false, Difficulty.EASY)
+    val question3 = Question<Int>("How many days are there between full moons?", 28, Difficulty.HARD)
+
+    companion object StudentProgress {
+        var total: Int = 10
+        var answered: Int = 3
+    }
+}
+fun main() {
+    println("${Quiz.answered} of ${Quiz.total} answered.")
+}
+ 
+
+
+***Propiedades y funciones de extensión
+Qué son las funciones de alcance:
+Son funciones especiales de Kotlin que crean un pequeño “mundo” donde podés acceder a las propiedades y métodos de un objeto sin repetir su nombre.
+
+Cómo se usan let() y apply():
+
+let() sirve para acceder a objetos ya existentes de forma más limpia.
+
+apply() sirve para configurar o usar un objeto recién creado sin necesidad de guardarlo en una variable.
+
+Por ejemplo, en lugar de escribir:
+
+println(person.name)
+println(person.age)
+println(person.job)
+
+
+Podés usar una función de alcance y escribir algo más compacto:
+
+person.let {
+    println(it.name)
+    println(it.age)
+    println(it.job)
+}
+
+Sin apply():
+
+val persona = Persona()
+persona.nombre = "Gastón"
+persona.edad = 30
+persona.presentarse()
+
+
+Con apply():
+
+val persona = Persona().apply {
+    nombre = "Gastón"
+    edad = 30
+    presentarse()
+}
+
+Funciones de alcance
