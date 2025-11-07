@@ -3,7 +3,7 @@ package com.example.myapplication.data
 import com.example.myapplication.R
 import com.example.myapplication.model.Topic
 
-object DataSource {
+object Datos {
     fun pasaListado (): List<Topic> {
       val topics = listOf(
         Topic(R.string.architecture, 58, R.drawable.architecture),
